@@ -1,0 +1,18 @@
+﻿  main.cpp
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(101,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(102,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(224,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(266,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(267,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(677,64): warning C4244: 'argument': conversion from 'double' to 'GLsizei', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(699,75): warning C4244: 'argument': conversion from 'double' to 'GLsizei', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(707,73): warning C4244: 'argument': conversion from 'double' to 'GLsizei', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(719,74): warning C4244: 'argument': conversion from 'double' to 'GLsizei', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(796,45): warning C4244: 'argument': conversion from 'double' to 'GLsizei', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(802,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(802,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(811,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(812,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(846,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\main.cpp(859,51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Sablon.vcxproj -> C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\x64\Debug\Sablon.exe
