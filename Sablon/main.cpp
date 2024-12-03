@@ -37,6 +37,8 @@ std::map<GLchar, Character> Characters;
 float elapsedTime = 60.0f;
 float lastFrameTime = 0.0f;
 
+
+//Text rendering
 void RenderText(unsigned int shader, std::string text, float x, float y, float scale, glm::vec3 color, unsigned int vao, unsigned int vbo)
 {
     // activate corresponding render state	
@@ -82,6 +84,7 @@ void RenderText(unsigned int shader, std::string text, float x, float y, float s
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+//Full colored circle
 void makeIndicator(unsigned int& vao, unsigned int& vbo, unsigned int shader, const float red, const float green, const float blue, float r,float centerX,float centerY)
 {
     float circle[(CRES + 2) * 5];
@@ -114,6 +117,7 @@ void makeIndicator(unsigned int& vao, unsigned int& vbo, unsigned int shader, co
     glBindVertexArray(0);
 }
 
+//Circle outline, without filling it the color
 void makeOutlineCircle(unsigned int& vao, unsigned int& vbo, unsigned int shader, const float red, const float green, const float blue)
 {
     float circle[(CRES + 1) * 5];
@@ -143,6 +147,7 @@ void makeOutlineCircle(unsigned int& vao, unsigned int& vbo, unsigned int shader
     glBindVertexArray(0);
 }
 
+//Indicator of remaining ammo
 void drawAmmoIndicator(unsigned int& vao, unsigned int& vbo, unsigned int shader, int ammo) {
     float blockWidth = 0.05f;
     float blockHeight = 0.02f;
@@ -169,7 +174,7 @@ void drawAmmoIndicator(unsigned int& vao, unsigned int& vbo, unsigned int shader
         ammoIndicator[i * 30 + 9] = colorB;              // Bottom-right b
 
         ammoIndicator[i * 30 + 10] = xPos;               // Top-left x
-        ammoIndicator[i * 30 + 11] = 0.85f + blockHeight; // Top-left y
+        ammoIndicator[i * 30 + 11] = 0.85f + blockHeight;// Top-left y
         ammoIndicator[i * 30 + 12] = colorR;             // Top-left r
         ammoIndicator[i * 30 + 13] = colorG;             // Top-left g
         ammoIndicator[i * 30 + 14] = colorB;             // Top-left b
@@ -206,6 +211,7 @@ void drawAmmoIndicator(unsigned int& vao, unsigned int& vbo, unsigned int shader
     glBindVertexArray(0);
 }
 
+//Drawing of hydraulic needle
 void drawVoltmeterNeedle(unsigned int& vao, unsigned int& vbo, unsigned int shader, float voltage, bool hydraulics) {
 
     float needle[10];
@@ -215,7 +221,7 @@ void drawVoltmeterNeedle(unsigned int& vao, unsigned int& vbo, unsigned int shad
     float angle = M_PI - (voltage*1000 * M_PI);
 
     if (hydraulics) {
-        angle += ((rand() % 5 - 2) * 0.01f);
+        angle += ((rand() % 5 - 2) * 0.01f); //Generate random angle addition from -0.02 to 0.02
     }
 
     needle[0] = 0.0f;  
@@ -243,6 +249,7 @@ void drawVoltmeterNeedle(unsigned int& vao, unsigned int& vbo, unsigned int shad
     glBindVertexArray(0);
 }
 
+//Dial of voltmeter
 void drawVoltmeterDial(unsigned int& vao, unsigned int& vbo, unsigned int shader) {
     float dial[(CRES + 2) * 5];
     float radius = 0.6f;
@@ -274,6 +281,7 @@ void drawVoltmeterDial(unsigned int& vao, unsigned int& vbo, unsigned int shader
     glBindVertexArray(0);
 }
 
+//Texture loading
 static unsigned loadImageToTexture(const char* filePath,int channels) {
     int TextureWidth;
     int TextureHeight;
@@ -310,6 +318,7 @@ static unsigned loadImageToTexture(const char* filePath,int channels) {
     }
 }
 
+//Texture adding
 std::pair<unsigned, unsigned> AddTexture(unsigned int& vao, unsigned int& vbo, unsigned int shader) {
 
     float vertices[] = {
@@ -366,6 +375,7 @@ std::pair<unsigned, unsigned> AddTexture(unsigned int& vao, unsigned int& vbo, u
     return std::make_pair(texture1, texture2);
 }
 
+//Verticies of X
 float verticesX[] = {
 
         -0.01f, -0.01f, 0.0f,
@@ -374,7 +384,7 @@ float verticesX[] = {
         -0.01f, 0.01f, 0.0f,
         0.01f, -0.01f, 0.0f,
 };
-
+//X creation
 void makeX(unsigned int& vao, unsigned int& vbo, unsigned int shader) {
     
 
@@ -389,6 +399,7 @@ void makeX(unsigned int& vao, unsigned int& vbo, unsigned int shader) {
     glBindVertexArray(0);
 }
 
+//Moving of X, getting closer to the cursor
 void moveX(float& xPos, float& yPos, float cursorX, float cursorY, float speed) {
     float dirX = cursorX - xPos;
     float dirY = cursorY - yPos;
@@ -415,7 +426,7 @@ void moveX(float& xPos, float& yPos, float cursorX, float cursorY, float speed) 
     }
 }
 
-
+//Updating the position of X
 void updateX(float xPos, float yPos) {
 
     verticesX[0] = -0.01f + xPos; // Update the starting point of the first line
@@ -431,11 +442,13 @@ void updateX(float xPos, float yPos) {
     verticesX[10] = -0.01f + yPos;
 }
 
+//Verticies of line between X and cursor
 float lineVertices[] = {
     0.0f, 0.0f, 0.0f,  
     0.0f, 0.0f, 0.0f   
 };
 
+//Creating a line
 void makeLine(unsigned int& vao, unsigned int& vbo, unsigned int shader) {
 
     glBindVertexArray(vao); 
@@ -577,37 +590,40 @@ int main(void)
 
     glClearColor(0.47f, 0.53f, 0.42f, 1.0);
 
-    bool ready = true;
-    int ammo = 10;
-    bool outside = false;
-    float voltage = 0.0f;
-    bool hydraulic = false;
-    float turretSpeed = 1.0f;
-    bool buttonLag = true;
-    float textureOffsetX = 0.0f;
-    float maxOffset = 0.2f; // Maximum scrolling amount (since the texture is 1.0 wide, we can scroll up to 20% on either side)
-    float minOffset = -0.2f;
-    float xPos = 0.0f;
-    float yPos = 0.0f;
-    float messageDisplayedTime = 0.0f;
+    bool ready = true; //Cannon ready to fire
+    int ammo = 10; //Ammo left
+    bool outside = false; //If user is outside
+    float voltage = 0.0f; //Voltage
+    bool hydraulic = false; //Is hydraulic on
+    float turretSpeed = 1.0f; //Speed of turret 
+    bool buttonLag = true; //Lag button
+    float textureOffsetX = 0.0f; //Offset of texture,where we are looking
+    float maxOffset = 0.2f; // Maximum scrolling amount
+    float minOffset = -0.2f;//Minimum scrolling amount
+    float xPos = 0.0f; //Position of the X
+    float yPos = 0.0f; //Position of the X
+    float messageDisplayedTime = 0.0f; //Time that the final message is displayed,to avoid thread sleeping
 
 
     std::pair<unsigned, unsigned> textures = AddTexture(VAO[5], VBO[5], backgroundTextureShader);
     unsigned texture1 = textures.first;
     unsigned texture2 = textures.second;
 
+    //Coordinates of targets
     float targetCoords[] = {
         0.0f,0.0f,
         0.0f,0.0f,
         0.0f,0.0f
     };
 
+    //Are targets hit
     bool targetHit[] = {
         false,
         false,
         false
     };
 
+    //Generating of X and Y of targets
     for (int i = 0; i < 3; i++) {
         float randomX = (rand() / (float)RAND_MAX) * 2.4f - 1.2f;
         float randomY = (rand() % 3200 - 1600) / 1600.0f;
@@ -624,16 +640,14 @@ int main(void)
 
         //Clearing of screen
         glClearColor(0.47f, 0.53f, 0.42f, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
          
-        
-       
 
         //Cursor position
         double cursorX, cursorY; 
         glfwGetCursorPos(window, &cursorX, &cursorY);
 
-        cursorX = (cursorX / 960) - 1.0; 
+        cursorX = (cursorX / 960) - 1.0; //Scaling cursor x and y to [-1,1]
         cursorY = -(cursorY / 600) + 1.0;
 
         //Escape key
@@ -740,24 +754,35 @@ int main(void)
 
 
             if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-                textureOffsetX += 0.001f;
+                if (!hydraulic) {
+                    textureOffsetX += (voltage / 10);
+                }
+                else {
+                    textureOffsetX += voltage;
+                }
                 if (textureOffsetX > maxOffset) textureOffsetX = maxOffset;
                 else {
                     for (int i = 0; i < 3; i++) {
-                        targetCoords[i * 2] -= 0.004f;
+                        targetCoords[i * 2] -= voltage*4;
                     }
                 }
             }
             if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-                textureOffsetX -= 0.001f;
+                if (!hydraulic) {
+                    textureOffsetX -= (voltage / 10);
+                }
+                else {
+                    textureOffsetX -= voltage;
+                }
                 if (textureOffsetX < minOffset) textureOffsetX = minOffset;
                 else {
                     for (int i = 0; i < 3; i++) {
-                        targetCoords[i * 2] += 0.004f;
+                        targetCoords[i * 2] += voltage*4;
                     }
                 }
             }
 
+            //Creating texture
             glViewport(0, 0, wWidth, wHeight);
             glUseProgram(backgroundTextureShader);
             glBindVertexArray(VAO[5]);
@@ -769,6 +794,7 @@ int main(void)
             glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
             glBindVertexArray(0);
 
+            //Creating shooting points
             for (int i = 0; i < 3; i++) {
                 
                 if (!targetHit[i]) {
@@ -780,26 +806,31 @@ int main(void)
                 }
             }
 
+            //Make tank boundary
             glViewport(0, 0, wWidth, wHeight*1.6);
             makeOutlineCircle(VAO[6], VBO[6], shader, 0, 0, 0);
             glUseProgram(shader); 
             glBindVertexArray(VAO[6]);
             glDrawArrays(GL_LINE_LOOP, 0, CRES + 1);
 
+            //Moving of X
             moveX(xPos, yPos, cursorX, cursorY, turretSpeed);
             updateX(xPos, yPos);
 
+            //Draw X
             glViewport(0, 0, wWidth, wHeight);
             makeX(VAO[7], VBO[7], shader);
             glBindVertexArray(VAO[7]);
             glDrawArrays(GL_LINES, 0, 4);
             glBindVertexArray(0);
 
+            //Updating line between X and cursor
             lineVertices[3] = cursorX;
             lineVertices[4] = cursorY;
             lineVertices[0] = xPos;
             lineVertices[1] = yPos;
 
+            //Making of line
             makeLine(VAO[8], VBO[8], shader);
             glBindBuffer(GL_ARRAY_BUFFER, VBO[8]);
             glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(lineVertices), lineVertices);
@@ -830,12 +861,15 @@ int main(void)
             }
         }
 
+
+        //Time calculation
         float currentFrameTime = glfwGetTime();
         float deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
 
         elapsedTime -= deltaTime;
 
+        //Display of timer and messages
         glViewport(0, 0, 1920, 1200);
         glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(1920), 0.0f, static_cast<float>(1200));
         glUseProgram(textShader);
