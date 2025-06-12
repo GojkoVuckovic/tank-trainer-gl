@@ -1,2 +1,0 @@
-C:\Users\Student\Desktop\RG2024-2025\W1\Sablon\x64\Debug\glew32.dll
-C:\Users\vucko\OneDrive\Desktop\Gojko\7_semestar\grafika\Sablon\x64\Debug\glew32.dll

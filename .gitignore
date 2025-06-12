@@ -1,0 +1,56 @@
+# Visual Studio files and directories
+.vs/
+*.vspscc
+*.vssscc
+*.suo
+*.user
+*.pdb
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.aps
+*.bsc
+*.sbr
+*.tlog
+*.log
+*.ipch  # Crucial for your current problem
+*.pch
+*.pbd
+*.res
+*.opendb
+*.sdf
+*.idb
+*.ncb
+*.vc.opendb
+*.aps
+
+# build outputs
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Package Management (NuGet)
+packages/
+*.nupkg
+*.nuspec
+
+# CMake (if you use it)
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install/
+_CPack_Packages/
+
+# Other temporary files
+*~
+*.bak
+*.tmp
+*.log
