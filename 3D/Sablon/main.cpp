@@ -364,6 +364,7 @@ int main(void)
         drawPlantRow(row2Positions, g_row2Visible,g_row2Color);
         drawPlantRow(row3Positions, g_row3Visible,g_row3Color);
 
+        //potpisivanje uz pomoc freetype
         float textScale = 0.5f;
         std::string name = "Gojko Vuckovic SV49/2021";
         float textWidth = 0.0f;
@@ -371,7 +372,7 @@ int main(void)
             Character ch = Characters[c];
             textWidth += (ch.Advance >> 6) * textScale;
         }
-        RenderText(name, g_wWidth - textWidth - 20.0f, g_wHeight - 20.0f - Characters['H'].Size.y * textScale, textScale, glm::vec3(1.0f, 1.0f, 1.0f)); // Beli tekst
+        RenderText(name, g_wWidth - textWidth - 20.0f, g_wHeight - 20.0f - Characters['H'].Size.y * textScale, textScale, glm::vec3(1.0f, 1.0f, 1.0f));
 
         glfwSwapBuffers(window);
         glfwPollEvents();
